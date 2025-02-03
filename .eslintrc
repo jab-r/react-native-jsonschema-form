@@ -1,69 +1,37 @@
 {
-  "extends": "airbnb",
-  "parser": "babel-eslint",
-  "plugins": [
-    "react",
-    "react-hooks",
-    "json"
+  "root": true,
+  "extends": [
+    "@react-native-community",
+    "plugin:@typescript-eslint/recommended"
   ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "react", "react-native"],
   "parserOptions": {
-    "ecmaVersion": 6,
-    "sourceType": "module",
     "ecmaFeatures": {
-      "arrowFunctions": true,
-      "binaryLiterals": true,
-      "blockBindings": true,
-      "classes": true,
-      "defaultParams": true,
-      "destructuring": true,
-      "forOf": true,
-      "generators": true,
-      "modules": true,
-      "objectLiteralComputedProperties": true,
-      "objectLiteralDuplicateProperties": true,
-      "objectLiteralShorthandMethods": true,
-      "objectLiteralShorthandProperties": true,
-      "octalLiterals": true,
-      "regexUFlag": true,
-      "regexYFlag": true,
-      "spread": true,
-      "superInFunctions": true,
-      "templateStrings": true,
-      "unicodeCodePointEscapes": true,
-      "globalReturn": true,
       "jsx": true
-    }
-  },
-  "env": {
-    "node": true,
-    "es6": true,
-    "browser": true
+    },
+    "project": ["./tsconfig.json"]
   },
   "rules": {
-    "import/no-unresolved": 0,
-    "import/no-extraneous-dependencies": [
-      "error", 
-      {
-        "peerDependencies": true
-      }
-    ],
-    "import/extensions": ["error", "never"],
-    "react/prop-types": 0,
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "error",
-    "import-extensions": 0,
-    "jsx-a11y/anchor-is-valid": 0,
-    "react/jsx-filename-extension": 0,
-    "no-multiple-empty-lines": ["error", { "max": 1 }],
-    "object-curly-newline": ["error"],
-    "arrow-parens": [2, "as-needed", { "requireForBlockBody": true }],
-    "react/jsx-props-no-spreading": 0,
-    "react/jsx-fragments": 0,
-    "jsx-a11y/control-has-associated-label": 0,
-    "react/static-property-placement": 0,
-    "react/state-in-constructor": 0,
-    "prefer-object-spread": 0,
-    "no-mixed-operators": ["error", { "allowSamePrecedence": true }],
-    "react/jsx-curly-brace-presence": 0
-  }
+    "react-native/no-unused-styles": "error",
+    "react-native/split-platform-components": "error",
+    "react-native/no-inline-styles": "error",
+    "react-native/no-color-literals": "error",
+    "react-native/no-raw-text": ["error", {
+      "skip": ["Button"]
+    }]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "ignorePatterns": [
+    "node_modules/",
+    "dist/",
+    "coverage/",
+    "*.config.js",
+    "jest.setup.js",
+    "__mocks__/**/*"
+  ]
 }

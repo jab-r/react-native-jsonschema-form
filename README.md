@@ -1,13 +1,8 @@
-# React Native Web JSONSchema Form
+# React Native JSONSchema Form
 
-[![Dependencies](https://img.shields.io/badge/dependencies-renovate-brightgreen.svg)](https://github.com/CareLuLu/react-native-web-jsonschema-form/issues/12)
-[![Codacy Badge](https://img.shields.io/codacy/grade/0a2f23b96c3a47038c89c00bb72ea197/master)](https://www.codacy.com/gh/CareLuLu/react-native-web-jsonschema-form?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CareLuLu/react-native-web-jsonschema-form&amp;utm_campaign=Badge_Grade)
-[![NPM](https://img.shields.io/npm/v/react-native-web-jsonschema-form.svg)](https://www.npmjs.com/package/react-native-web-jsonschema-form)
+[![NPM](https://img.shields.io/npm/v/react-native-jsonschema-form.svg)](https://www.npmjs.com/package/react-native-jsonschema-form)
 
-Render customizable forms using [JSON schema](http://json-schema.org/) for responsive websites and [Expo](https://expo.io/) apps (both iOS and Android). This library was inpired on [react-jsonschema-form](https://github.com/mozilla-services/react-jsonschema-form) but was built with [React Native](https://facebook.github.io/react-native/) and [React Native Web](https://github.com/necolas/react-native-web) in mind.
-
-- See this library in production at https://www.carelulu.com
-- Skeleton project using React Native Web Jsonschema Form at https://www.carelulu.com/react-native-web-example/login and https://github.com/CareLuLu/react-native-web-skeleton
+Render customizable forms using [JSON schema](http://json-schema.org/) for React Native apps. This library was inspired by [react-jsonschema-form](https://github.com/mozilla-services/react-jsonschema-form) but was built specifically for [React Native](https://facebook.github.io/react-native/).
 
 ## Table of Contents
 
@@ -30,7 +25,7 @@ Coming soon!
 
 ## Setup
 
-React Native Web JSONSchema Form was created to facilitate the development of `write once, run anywhere` web and mobile apps. In order to accomplish that, this library is heavily based on React Native and React Native Web.
+React Native JSONSchema Form was created to facilitate the development of mobile apps using JSON Schema for form generation and validation.
 
 ### Requirements
 
@@ -40,30 +35,20 @@ First you need to install react ^16.8.3 (this library uses react-hooks).
 yarn add react
 ```
 
-If you're using [Expo](https://expo.io/), they use a custom version of react-native and therefore you need to check what is the React Native repository for the Expo version you're using. For Expo v33.x.x you'd run:
+If you're using [Expo](https://expo.io/), they use a custom version of react-native and therefore you need to check what is the React Native repository for the Expo version you're using. For example:
 
 ```sh
-yarn add https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz
+yarn add react-native
 ```
 
-If your project is also being used for web, please install React Native Web. Make sure your babel/webpack build replace all `react-native` imports with `react-native-web` ([details here](https://github.com/necolas/react-native-web/blob/master/docs/guides/getting-started.md)). If you used [React Create App](https://github.com/facebook/create-react-app), aliasing is already taken care off for you.
-
-```sh
-yarn add react-dom react-native-web 
-```
-
-This library is backed by [react-native-web-ui-components](https://www.npmjs.com/package/react-native-web-ui-components). Please make sure you have installed `react-native-web-ui-components` and its dependencies. All inputs and buttons will follow the theme used on your project. The form must be within `<UIProvider>` but doesn't need to be a direct child.
-
-```sh
-yarn add react-native-web-ui-components
-```
+This library is backed by React Native UI components. The form must be within `<UIProvider>` but doesn't need to be a direct child.
 
 ### Installation
 
 Install the library using `yarn` or `npm`.
 
 ```sh
-yarn add react-native-web-jsonschema-form
+yarn add react-native-jsonschema-form
 ```
 
 ## Examples
@@ -71,13 +56,10 @@ yarn add react-native-web-jsonschema-form
 ### Basic Form
 
 ```javascript
-import React from 'react';
-import { useHistory } from 'react-router';
-import { Alert } from 'react-native';
-import { UIProvider } from 'react-native-web-ui-components';
-import Form from 'react-native-web-jsonschema-form';
-import { Router, Switch } from 'react-router-dom';
-// import { Router, Switch } from 'react-router-native';
+import React, { useState } from 'react';
+import { StyleSheet } from 'react-native';
+import { UIProvider } from 'react-native-ui-components';
+import Form from 'react-native-jsonschema-form';
 
 const theme = {
   input: {
@@ -105,15 +87,11 @@ const BasicForm = ({ formData, onChange }) => (
   />
 );
 
-const ThemeWrapper = ({ children }) => {
-  const history = useHistory();
-
-  return (
-    <UIProvider theme={theme} history={history}>
-      {children}
-    </UIProvider>
-  );
-};
+const ThemeWrapper = ({ children }) => (
+  <UIProvider theme={theme}>
+    {children}
+  </UIProvider>
+);
 
 const App = () => {
   const [formData, setFormData] = useState({});
@@ -124,16 +102,12 @@ const App = () => {
   });
 
   return (
-    <Router>
-      <Switch>
-        <ThemeWrapper>
-          <BasicForm
-            formData={formData}
-            onChange={onChange}
-          />
-        </ThemeWrapper>
-      </Switch>
-    </Router>
+    <ThemeWrapper>
+      <BasicForm
+        formData={formData}
+        onChange={onChange}
+      />
+    </ThemeWrapper>
   );
 };
 ```
@@ -143,8 +117,8 @@ const App = () => {
 ```javascript
 import React from 'React';
 import PropTypes from 'prop-types';
-import { Loading, Alert } from 'react-native-web-ui-components';
-import Form from 'react-native-web-jsonschema-form';
+import { ActivityIndicator, Alert } from 'react-native';
+import Form from 'react-native-jsonschema-form';
 
 class MyForm extends React.Component {
   static propTypes = {
@@ -196,12 +170,12 @@ class MyForm extends React.Component {
       fetch(`/get-schema/${controller}/${action}`)
         .then((schema) => self.setState({ schema });
 
-      return <Loading />;
+      return <ActivityIndicator />;
     }
 
     return (
       <React.Fragment>
-        {posting ? <Loading /> : null}
+        {posting ? <ActivityIndicator /> : null}
         {message ? (
           <Alert>
             Message
@@ -259,24 +233,12 @@ const theme = {
   },
 };
 
-const ThemeWrapper = ({ children }) => {
-  const history = useHistory();
-
-  return (
-    <UIProvider theme={theme} history={history}>
-      {children}
-    </UIProvider>
-  );
-};
+const ThemeWrapper = ({ children }) => (
+  <UIProvider theme={theme}>
+    {children}
+  </UIProvider>
+);
 ```
-
-### Form Validation
-
-See https://github.com/CareLuLu/react-native-web-jsonschema-form/issues/139#issuecomment-654377982.
-
-### Array Fields
-
-See https://github.com/CareLuLu/react-native-web-jsonschema-form/issues/113#issuecomment-621375353.
 
 ## Props
 
@@ -284,7 +246,7 @@ The `Form` has the following props:
 
 ```javascript
 import React from 'react';
-import Form from 'react-native-web-jsonschema-form';
+import Form from 'react-native-jsonschema-form';
 
 const Example = ({
   // Misc
@@ -293,7 +255,6 @@ const Example = ({
   scroller, // If provided, this will be passed to the widgets to allow disabling ScrollView during a gesture.
   wigdets, // Object with a list of custom widgets.
 
-  
   // Data
   formData, // Initial data to populate the form. If this attribute changes, the form will update the data.
   filterEmptyValues, // If true, all empty and non-required fields will be omitted from the submitted values.
