@@ -1,75 +1,107 @@
 # System Patterns
 
-## Architecture Overview
-The library follows a component-based architecture with clear separation of concerns:
+## Architecture
+- Extension-based architecture that builds on react-jsonschema-form
+- Component-based structure following React Native patterns
+- Adapter pattern to convert web components to native equivalents
+- Theme-based customization system
 
-### Core Components
-1. Form Container
-   - Manages form state
-   - Handles form submission
-   - Coordinates validation
-   - Manages field updates
+## Key Technical Decisions
+1. TypeScript Implementation
+   - Ensures type safety
+   - Provides better developer experience
+   - Enables better IDE support
+   - Custom type definitions for RJSF integration
 
-2. Field Components
-   - Handle individual form fields
-   - Manage field-level validation
-   - Control field rendering
-   - Handle field-specific logic
+2. Component Structure
+   - Base components extend from react-jsonschema-form
+   - React Native specific implementations
+   - Separation of concerns between form logic and UI
+   - Modular widget system
 
-3. Widget System
-   - Provides UI components for different field types
-   - Supports custom widget registration
-   - Handles platform-specific rendering
+3. Testing Strategy
+   - Jest for unit testing
+   - React Native Testing Library for component testing
+   - Integration tests for form validation
+   - Snapshot testing for UI components
 
-## Key Design Patterns
+## Design Patterns
+1. Adapter Pattern
+   - Converting web components to React Native equivalents
+   - Maintaining consistent form behavior
+   - Platform-specific style adaptations
+   - Native input handling
 
-### 1. Component Composition
-- Uses React's component composition for form structure
-- Enables nested form fields
-- Allows for widget customization
+2. Factory Pattern
+   - Dynamic component creation based on schema
+   - Flexible field type mapping
+   - Custom widget registration
+   - Theme-based component generation
 
-### 2. State Management
-- Uses React hooks for local state
-- Implements controlled components pattern
-- Maintains single source of truth for form data
+3. Observer Pattern
+   - Form state management
+   - Field validation updates
+   - Error handling and propagation
+   - Form submission lifecycle
 
-### 3. Type System
-- Leverages TypeScript for type safety
-- Uses JSON Schema type definitions
-- Provides strong typing for form data and events
+4. Theme Pattern
+   - Centralized theme configuration
+   - Component-specific styling
+   - Platform-aware styling
+   - Style composition system
+   - UI Schema customization support
+   - Props propagation through theme system
 
-### 4. Testing Strategy
-- Jest for unit testing
-- React Testing Library for component testing
-- Test coverage requirements
-- Integration test support
-
-## File Structure
+## Code Organization
 ```
 src/
-├── fields/          # Field type implementations
-├── widgets/         # UI components for fields
-├── types/          # TypeScript definitions
-├── utils/          # Helper functions
-└── __tests__/      # Test files
+├── components/     # React Native form components
+│   └── Form.tsx   # Main form component
+├── widgets/       # Form input widgets
+│   ├── TextWidget.tsx
+│   └── index.ts
+├── templates/     # Layout templates
+│   ├── FieldTemplate.tsx
+│   ├── ObjectFieldTemplate.tsx
+│   └── index.ts
+├── theme/         # Theme system
+│   └── index.tsx
+├── types/         # TypeScript definitions
+│   └── index.ts
+└── utils/         # Utility functions
 ```
 
-## Development Patterns
+## Implementation Patterns
+1. Widget Implementation
+   - Extend from base RJSF widget types (WidgetProps)
+   - Handle platform-specific input behavior
+   - Implement error display with consistent styling
+   - Support theme customization
+   - Loading state management
+   - Mobile-first interaction patterns
+   - Common widget patterns:
+     * Use Pressable for custom touch interactions (Checkbox, Radio)
+     * Native components for platform-specific behavior (Switch, Picker)
+     * Consistent error message display below widgets
+     * Standardized disabled/readonly states
+     * Proper accessibility implementation
+     * Touch-friendly hit areas
+     * Visual feedback on interaction
 
-### Code Style
-- ESLint for code linting
-- Prettier for code formatting
-- TypeScript strict mode
-- Consistent file naming
+2. Template Implementation
+   - Consistent layout structure
+   - Error message handling
+   - Help text display
+   - Required field indication
 
-### Testing Requirements
-- Unit tests for utilities
-- Component tests for widgets
-- Integration tests for form behavior
-- Minimum 80% coverage
+3. Theme Implementation
+   - Base styles for all components
+   - Widget-specific styling
+   - Platform-specific adjustments
+   - Style composition utilities
 
-### Build Process
-- TypeScript compilation
-- Babel transformation
-- Jest test runner
-- npm scripts for common tasks
+4. Form Validation
+   - Schema-based validation
+   - Custom validation rules
+   - Real-time validation
+   - Error message formatting

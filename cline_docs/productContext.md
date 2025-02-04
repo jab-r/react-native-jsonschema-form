@@ -1,24 +1,16 @@
 # Product Context
 
-This project is a React Native Web JSON Schema Form library that allows developers to create dynamic forms based on JSON Schema specifications. The library is designed to work seamlessly across web platforms while maintaining compatibility with React Native components.
-
-## Core Features
-- JSON Schema 7 compliant form generation
-- React Native Web compatibility
-- TypeScript support
-- Customizable form fields and widgets
-- Validation based on JSON Schema rules
-- Support for complex nested forms
-- Extensible widget system
-
-## Target Users
-- Developers building forms for React Native Web applications
-- Teams requiring dynamic form generation based on JSON Schema
-- Projects needing consistent form behavior across platforms
+## Purpose
+This project exists to extend the react-jsonschema-form library to work seamlessly in React Native environments. It provides React Native-specific component implementations for form rendering.
 
 ## Problems Solved
-- Reduces boilerplate in form creation
-- Ensures form validation consistency
-- Provides type safety with TypeScript
-- Enables dynamic form generation from schema definitions
-- Maintains cross-platform compatibility
+- Bridges the gap between react-jsonschema-form and React Native
+- Enables the use of JSON Schema forms in mobile applications
+- Provides native mobile UI components (like `<Text>`) instead of web components
+- Maintains compatibility with the core react-jsonschema-form functionality while adapting it for mobile use
+
+## How It Works
+- Acts as an extension/adapter layer for react-jsonschema-form
+- Implements React Native versions of form components
+- Preserves the JSON Schema form validation and structure
+- Replaces web-specific components with their React Native equivalents

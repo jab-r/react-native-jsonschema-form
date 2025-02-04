@@ -1,96 +1,101 @@
 # Technical Context
 
-## Technology Stack
+## Technologies Used
+- React Native
+- TypeScript
+- react-jsonschema-form (core dependency)
+- Babel
+- Jest (testing framework)
+- React Native Testing Library
+- validator-ajv8 (JSON Schema validation)
 
-### Core Technologies
-- React 18.2.0
-- React Native Web 0.19.9
-- TypeScript 5.3.3
-- JSON Schema 7
-
-### Development Dependencies
-- Babel 7.x for transpilation
-- ESLint 8.x for code linting
-- Jest 29.x for testing
-- Testing Library for React components
-
-## Development Environment
-
-### Build Tools
+## Development Setup
+### Core Dependencies
 ```json
 {
-  "build": "tsc",
-  "lint": "eslint src --ext .ts,.tsx",
-  "lint:fix": "eslint src --ext .ts,.tsx --fix",
-  "test": "jest",
-  "test:watch": "jest --watch",
-  "test:coverage": "jest --coverage",
-  "prepare": "npm run build"
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-native": "^0.72.0",
+    "@rjsf/core": "^5.12.0"
+  },
+  "dependencies": {
+    "@rjsf/core": "^5.12.0",
+    "@rjsf/utils": "^5.12.0",
+    "@rjsf/validator-ajv8": "^5.12.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.0",
+    "@babel/preset-env": "^7.22.20",
+    "@babel/preset-react": "^7.22.15",
+    "@babel/preset-typescript": "^7.23.0",
+    "@babel/plugin-transform-class-properties": "^7.22.5",
+    "@babel/plugin-transform-private-methods": "^7.22.5",
+    "@babel/plugin-transform-private-property-in-object": "^7.22.11",
+    "@types/react": "^18.2.28",
+    "@types/react-native": "^0.72.3",
+    "@typescript-eslint/eslint-plugin": "^6.7.5",
+    "@typescript-eslint/parser": "^6.7.5",
+    "eslint": "^8.51.0",
+    "jest": "^29.7.0",
+    "@testing-library/react-native": "^12.3.0",
+    "typescript": "^4.9.5"
+  }
 }
 ```
 
-### Configuration Files
-- `.babelrc` - Babel configuration
-- `.eslintrc` - ESLint rules
-- `tsconfig.json` - TypeScript settings
-- `jest.config.js` - Jest test configuration
-- `jest.setup.js` - Jest environment setup
+### Build Configuration
+- Babel configuration for TypeScript and React Native
+- TypeScript for type checking and compilation
+- Jest for testing infrastructure
+- ESLint for code quality
+- Proper module resolution for React Native
 
-## Type System
+## Technical Constraints
+1. React Native Compatibility
+   - Must support React Native >=0.60.0
+   - Handle platform-specific UI components
+   - Consider mobile-specific form interactions
+   - Support React Native's layout system
 
-### Key Type Definitions
-- `JSONSchema7` - JSON Schema type definitions
-- `FormProps` - Form component props
-- `FieldProps` - Field component props
-- `WidgetProps` - Widget component props
-- `UISchema` - UI customization schema
+2. Core Library Compatibility
+   - Maintain compatibility with react-jsonschema-form core
+   - Support JSON Schema validation
+   - Preserve form submission behavior
+   - Handle RJSF theme system
 
-### Type Extensions
-- Custom type declarations for third-party libraries
-- React Native Web type augmentations
-- Testing Library type support
+3. Performance Considerations
+   - Optimize for mobile devices
+   - Minimize bundle size
+   - Efficient form rendering and validation
+   - Reduce unnecessary re-renders
 
-## Testing Infrastructure
+4. Platform Support
+   - iOS and Android compatibility
+   - Handle platform-specific UI differences
+   - Support responsive layouts
+   - Platform-specific input behaviors
 
-### Test Setup
-- Jest as test runner
-- React Testing Library for components
-- Jest DOM for DOM testing
-- Coverage thresholds set to 80%
+## Implementation Details
+1. Form Component
+   - Extends RJSF core functionality
+   - React Native specific rendering
+   - Theme integration
+   - Custom widget support
 
-### Test Types
-- Unit tests for utilities
-- Component tests
-- Integration tests
-- Type testing
+2. Widget System
+   - Platform-aware input components
+   - Native styling support
+   - Error state handling
+   - Accessibility support
 
-## Dependencies
+3. Theme System
+   - React Native StyleSheet integration
+   - Component-specific styling
+   - Platform-specific styles
+   - Style composition utilities
 
-### Production Dependencies
-```json
-{
-  "json-schema": "^0.4.0",
-  "lodash": "^4.17.21",
-  "react": "^18.2.0",
-  "react-native-web": "^0.19.9",
-  "react-native-web-ui-components": "^1.0.0",
-  "underscore.string": "^3.3.6"
-}
-```
-
-### Development Dependencies
-- TypeScript tooling
-- Testing frameworks
-- Build tools
-- Code quality tools
-
-## Browser Support
-- Modern browsers (last 2 versions)
-- Mobile browsers
-- React Native Web compatibility
-
-## Performance Considerations
-- Bundle size optimization
-- React performance best practices
-- Mobile-first development
-- Cross-platform compatibility
+4. Validation System
+   - JSON Schema validation
+   - Custom validation rules
+   - Real-time validation
+   - Error message formatting
