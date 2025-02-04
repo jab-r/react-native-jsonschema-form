@@ -9,6 +9,7 @@ dist
 
 # dependencies
 /node_modules
+/temp-rjsf
 
 # misc
 .env.local
