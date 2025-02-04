@@ -37,6 +37,7 @@ import FormEvent from './FormEvent';
 import DefaultCancelButton from './CancelButton';
 import DefaultSubmitButton from './SubmitButton';
 import { FormProps, ThemeProps } from './types';
+import { AbstractFieldProps } from './fields/AbstractField';
 
 export {
   FIELD_KEY,
@@ -93,9 +94,21 @@ const getButtonPosition = (position: 'left' | 'right' | 'center' = 'right'): Vie
   return style;
 };
 
+// Create a proper array type that extends Array<string>
+class FormErrorsArray extends Array<string> {
+  hidden?: boolean;
+  lastValue?: any;
+
+  constructor() {
+    super();
+    this.hidden = false;
+    this.lastValue = undefined;
+  }
+}
+
 interface JsonSchemaFormState {
   values: Record<string, any>;
-  errors: Record<string, any>;
+  errors: Record<string, FormErrorsArray>;
   metas: Record<string, any>;
   required: Record<string, boolean>;
   schema: JSONSchema7;
@@ -218,14 +231,17 @@ class JsonSchemaForm extends Component<FormProps & ThemeProps, JsonSchemaFormSta
   private id: string;
   private fieldRegex: RegExp;
   private mountSteps: Array<() => void>;
-  private widgets: Record<string, React.ComponentType<any>>;
+  private widgets: {
+    ErrorWidget: React.ComponentType<any>;
+    LabelWidget: React.ComponentType<any>;
+    [key: string]: React.ComponentType<any>;
+  };
   private mounted: boolean;
 
-  private handleClick = (e: Event): void => {
-    if (e instanceof MouseEvent && e.target instanceof Element) {
-      if (!isField(e.target, this.fieldRegex)) {
-        this.setState({ event: undefined });
-      }
+  private handleClick = (e: MouseEvent): void => {
+    const target = e.target as Element;
+    if (!isField(target, this.fieldRegex)) {
+      this.setState({ event: undefined });
     }
   };
 
@@ -325,10 +341,13 @@ class JsonSchemaForm extends Component<FormProps & ThemeProps, JsonSchemaFormSta
     const { metas, values, errors } = this.state;
     const { onChange } = this.props;
 
+    // Ensure values is never undefined
+    const formValues = values || {};
+
     const event = new FormEvent('change', {
       name,
       value,
-      values,
+      values: formValues,
       metas,
       nextMeta,
       nextErrors,
@@ -409,7 +428,9 @@ class JsonSchemaForm extends Component<FormProps & ThemeProps, JsonSchemaFormSta
     this.run(onSuccess ? onSuccess(event) : undefined, () => {
       if (!event.isDefaultPrevented()) {
         this.onMount(() => this.setState({
-          errors: getErrors({}, schema),
+          errors: Object.fromEntries(
+            Object.entries(getErrors({}, schema)).map(([key]) => [key, new FormErrorsArray()])
+          ),
           values: event.params.values || {},
           update: expand(event.params.update || []) || {},
         }));
@@ -434,14 +455,16 @@ class JsonSchemaForm extends Component<FormProps & ThemeProps, JsonSchemaFormSta
     this.run(onError ? onError(event) : undefined, () => {
       if (!event.isDefaultPrevented()) {
         this.onMount(() => this.setState({
-          errors: event.params.errors || {},
+          errors: Object.fromEntries(
+            Object.entries(event.params.errors || {}).map(([key]) => [key, new FormErrorsArray()])
+          ),
           update: expand(event.params.update || []) || {},
         }));
       }
     });
   };
 
-  run = <T,>(
+  run = <T extends unknown>(
     maybePromise: T | Promise<T> | undefined,
     resolveHandler?: (value: T) => void,
     rejectHandler?: (error: any) => void,
@@ -459,13 +482,13 @@ class JsonSchemaForm extends Component<FormProps & ThemeProps, JsonSchemaFormSta
     }
   };
 
-  filterEmpty(values: any, path = '', type: 'object' | 'array' = 'object'): any {
+  filterEmpty(values: Record<string, any> | any[], path = '', type: 'object' | 'array' = 'object'): Record<string, any> | any[] {
     const { required } = this.state;
-    const filteredValues = type === 'object' ? {} : [];
+    const filteredValues: Record<string, any> | any[] = type === 'object' ? {} : [];
     const add = type === 'object'
-      ? (v: any, k: string) => Object.assign(filteredValues, { [k]: v })
+      ? (v: any, k: string) => Object.assign(filteredValues as Record<string, any>, { [k]: v })
       : (v: any) => (filteredValues as any[]).push(v);
-    each(values, (v, k) => {
+    each(values, (v: any, k: string) => {
       let empty = false;
       const name = path ? `${path}.${k}` : k;
       let value = v;
@@ -485,12 +508,12 @@ class JsonSchemaForm extends Component<FormProps & ThemeProps, JsonSchemaFormSta
     return filteredValues;
   }
 
-  filterDisabled(values: any, metas: any, path = '', type: 'object' | 'array' = 'object'): any {
-    const filteredValues = type === 'object' ? {} : [];
+  filterDisabled(values: Record<string, any> | any[], metas: Record<string, any>, path = '', type: 'object' | 'array' = 'object'): Record<string, any> | any[] {
+    const filteredValues: Record<string, any> | any[] = type === 'object' ? {} : [];
     const add = type === 'object'
-      ? (v: any, k: string) => Object.assign(filteredValues, { [k]: v })
+      ? (v: any, k: string) => Object.assign(filteredValues as Record<string, any>, { [k]: v })
       : (v: any) => (filteredValues as any[]).push(v);
-    each(values, (v, k) => {
+    each(values, (v: any, k: string) => {
       const disabled = !!(metas && metas[k] && metas[k]['ui:disabled']);
       if (!disabled) {
         const name = path ? `${path}.${k}` : k;
