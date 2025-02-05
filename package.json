@@ -7,6 +7,15 @@
   "publishConfig": {
     "access": "public"
   },
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jab-r/react-native-jsonschema-form.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jab-r/react-native-jsonschema-form/issues"
+  },
+  "homepage": "https://github.com/jab-r/react-native-jsonschema-form#readme",
   "scripts": {
     "build": "tsc",
     "test": "jest",
