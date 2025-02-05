@@ -25,9 +25,11 @@
     "react-native": "^0.72.0"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "^8.3.0",
     "@react-native-picker/picker": "^2.11.0",
     "@rjsf/core": "^5.12.0",
-    "@rjsf/utils": "^5.12.0"
+    "@rjsf/utils": "^5.12.0",
+    "date-fns": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.23.0",

@@ -21,7 +21,9 @@
   "dependencies": {
     "@rjsf/core": "^5.12.0",
     "@rjsf/utils": "^5.12.0",
-    "@rjsf/validator-ajv8": "^5.12.0"
+    "@rjsf/validator-ajv8": "^5.12.0",
+    "@react-native-community/datetimepicker": "^8.3.0",
+    "date-fns": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.23.0",
@@ -84,6 +86,9 @@
 
 2. Widget System
    - Platform-aware input components
+   - Specialized text handling:
+     * TextInputWidget for editable input fields
+     * TextWidget for constant/read-only text display
    - Native styling support
    - Error state handling
    - Accessibility support
@@ -99,3 +104,5 @@
    - Custom validation rules
    - Real-time validation
    - Error message formatting
+   - Pattern validation for text inputs
+   - Constant value support for read-only fields

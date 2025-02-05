@@ -6,11 +6,26 @@ import { RJSFSchema, UiSchema } from '@rjsf/utils';
 
 const schema: RJSFSchema = {
   type: 'object',
-  required: ['name', 'preferences', 'notification', 'theme', 'subscribe'],
+  required: ['name', 'preferences', 'notification', 'theme', 'subscribe', 'startDate', 'startTime', 'meetingDateTime'],
   properties: {
     name: {
       type: 'string',
       title: 'Name',
+    },
+    startDate: {
+      type: 'string',
+      format: 'date',
+      title: 'Start Date',
+    },
+    startTime: {
+      type: 'string',
+      format: 'time',
+      title: 'Start Time',
+    },
+    meetingDateTime: {
+      type: 'string',
+      format: 'date-time',
+      title: 'Meeting Date and Time',
     },
     preferences: {
       type: 'string',
@@ -53,12 +68,49 @@ const schema: RJSFSchema = {
       title: 'Enable push notifications',
       default: true,
     },
+    age: {
+      type: 'integer',
+      title: 'Age',
+      minimum: 0,
+      maximum: 120,
+    },
+    rating: {
+      type: 'number',
+      title: 'Rating',
+      minimum: 0,
+      maximum: 5,
+    },
+    quantity: {
+      type: 'integer',
+      title: 'Quantity',
+    },
+    phone: {
+      type: 'string',
+      title: 'Phone Number',
+      pattern: '^\\d{3}-\\d{3}-\\d{4}$',
+      description: 'Format: XXX-XXX-XXXX',
+    },
+    username: {
+      type: 'string',
+      title: 'Username',
+      pattern: '^[a-zA-Z0-9_]{3,16}$',
+      description: '3-16 characters, letters, numbers and underscore only',
+    },
   },
 };
 
 const uiSchema: UiSchema = {
   name: {
     'ui:widget': 'text',
+  },
+  startDate: {
+    'ui:widget': 'date',
+  },
+  startTime: {
+    'ui:widget': 'time',
+  },
+  meetingDateTime: {
+    'ui:widget': 'datetime',
   },
   preferences: {
     'ui:widget': 'radio',
@@ -74,6 +126,21 @@ const uiSchema: UiSchema = {
   },
   enableNotifications: {
     'ui:widget': 'toggle',
+  },
+  age: {
+    'ui:widget': 'number',
+  },
+  rating: {
+    'ui:widget': 'number',
+  },
+  quantity: {
+    'ui:widget': 'number',
+  },
+  phone: {
+    'ui:widget': 'text',
+  },
+  username: {
+    'ui:widget': 'text',
   },
 };
 

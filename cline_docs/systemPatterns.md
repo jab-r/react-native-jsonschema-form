@@ -58,7 +58,7 @@ src/
 ├── components/     # React Native form components
 │   └── Form.tsx   # Main form component
 ├── widgets/       # Form input widgets
-│   ├── TextWidget.tsx
+│   ├── TextInputWidget.tsx
 │   └── index.ts
 ├── templates/     # Layout templates
 │   ├── FieldTemplate.tsx
@@ -79,6 +79,11 @@ src/
    - Support theme customization
    - Loading state management
    - Mobile-first interaction patterns
+   - Input validation patterns:
+     * Schema-based constraints (min/max, pattern)
+     * Real-time validation feedback
+     * Input prevention for invalid values
+     * Consistent error display
    - Common widget patterns:
      * Use Pressable for custom touch interactions (Checkbox, Radio)
      * Native components for platform-specific behavior (Switch, Picker)
@@ -105,3 +110,14 @@ src/
    - Custom validation rules
    - Real-time validation
    - Error message formatting
+   - Input-level validation:
+     * Numeric constraints (min/max values)
+     * Text pattern matching (regex)
+     * Real-time input validation
+     * Immediate user feedback
+     * Constraint-based input prevention
+   - Widget-specific validation:
+     * NumberWidget: Range validation
+     * TextInputWidget: Pattern matching for input fields
+     * TextWidget: Display-only for constant text values
+     * Common validation display patterns

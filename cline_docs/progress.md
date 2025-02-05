@@ -4,11 +4,14 @@
 - Initial project setup and configuration
 - Core Form component with RJSF integration
 - Complete widget implementation:
-  - [✓] TextWidget
+  - [✓] TextInputWidget (with regex pattern validation)
+  - [✓] TextWidget (for constant/read-only text display)
+  - [✓] NumberWidget (with min/max validation)
   - [✓] CheckboxWidget
   - [✓] RadioButtonWidget
   - [✓] SelectWidget
   - [✓] ToggleWidget
+  - [✓] DateTimeWidget (with date/time/datetime formats)
 - Field and Object templates
 - Theme system for React Native
 - TypeScript configuration and type definitions
@@ -25,7 +28,7 @@
    - [✓] Form component
    - [✓] Basic Field components
    - [✓] Core Widget components
-   - [ ] Additional Widget components (TextArea, DateTime)
+   - [ ] Additional Widget components (TextArea)
    - [✓] Template components
 
 2. Infrastructure
@@ -68,6 +71,9 @@
 - None currently tracked
 
 ## Recent Achievements
+- ✅ Added TextWidget for displaying constant text values
+- ✅ Added NumberWidget with min/max validation support
+- ✅ Enhanced TextInputWidget with regex pattern validation
 - ✅ Implemented core Form component
 - ✅ Created comprehensive widget system
 - ✅ Implemented form templates
@@ -78,3 +84,4 @@
 - ✅ Added enhanced SubmitButton
 - ✅ Implemented core form widgets (Checkbox, Radio, Select, Toggle)
 - ✅ Added accessibility support
+- ✅ Implemented DateTimeWidget with native picker support
