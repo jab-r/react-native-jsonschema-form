@@ -29,7 +29,7 @@
     "form",
     "react-jsonschema-form"
   ],
-  "author": "",
+  "author": "Jonathan Borden <jonathan@openhealth.org",
   "license": "MIT",
   "peerDependencies": {
     "@rjsf/core": "^5.12.0",
