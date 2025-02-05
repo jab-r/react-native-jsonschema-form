@@ -1,9 +1,12 @@
 {
-  "name": "react-native-jsonschema-form",
+  "name": "@jabbr/react-native-jsonschema-form",
   "version": "0.1.0",
   "description": "React Native implementation of react-jsonschema-form",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc",
     "test": "jest",
